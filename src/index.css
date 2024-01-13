@@ -40,9 +40,23 @@ button {
 /* CALCULATOR SCREEN */
 
 .calculator__screen {
+  padding: 0.5rem;
   border: 1px solid;
   height: 20%;
   width: 100%;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.calculator__screen p {
+  font-size: 3rem;
+  line-height: 0.7;
+}
+
+.calculator__screen small {
+  font-size: 1.2rem;
 }
 
 
