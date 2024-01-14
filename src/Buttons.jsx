@@ -29,23 +29,14 @@ export default function Buttons({ on, setOn, setInput, input }) {
     }
 
     function handleResult() {
-        let result = "";
 
-        for (let i = 0; i < input.length; i++) {
 
-            switch (input[i]) {
-                case "&#43;":
-                result += "+";
-                break;
-                case "&#8722;":
-                result += "-";
-                break;
-                case "&#215;":
-                result += "*";
-                break;
-                case "&#247;":
-            }
-        }
+         let formatedInput = input.replace("√", "Math.sqrt");
+
+         const result = Function("return " + formatedInput)();
+         console.log(result);
+         setInput(result.toString());
+
     }
 
 
