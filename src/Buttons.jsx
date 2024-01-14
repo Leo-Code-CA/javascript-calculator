@@ -1,12 +1,14 @@
-export default function Buttons({ on, setOn, setInput, input }) {
+export default function Buttons({ on, setOn, setInput, input, power, setPower }) {
 
     function handleOnOff() {
         setOn(!on);
         setInput("0");
+        setPower(false);
     }
 
     function handleClear() {
         setInput("0");
+        setPower(false);
     }
 
     function handleDelete() {
@@ -25,17 +27,26 @@ export default function Buttons({ on, setOn, setInput, input }) {
     }
 
     function handleDisplayPow(e) {
-        setInput((prev) => prev + " ");
+
+        power ? setInput((prev) => prev + "~~") : setInput((prev) => prev + "**");
+        setPower(!power);
+
     }
 
     function handleResult() {
 
+        let formatedInput = input
+        .replaceAll("×", "*")
+        .replaceAll("÷", "/")
+        .replaceAll("−", "-")
+        .replaceAll("~~", "")
+        .replaceAll("√", "Math.sqrt");  // shorter/ better way to do that?
 
-         let formatedInput = input.replace("√", "Math.sqrt");
-
-         const result = Function("return " + formatedInput)();
-         console.log(result);
-         setInput(result.toString());
+        const result = Function("return " + formatedInput)();
+        console.log(input);
+        console.log(formatedInput);
+        console.log(result);
+        setInput(result.toString());
 
     }
 
