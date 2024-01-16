@@ -1,14 +1,12 @@
-export default function Buttons({ on, setOn, setInput, input, power, setPower }) {
+export default function Buttons({ on, setOn, setInput, input }) {
 
     function handleOnOff() {
         setOn(!on);
         setInput("0");
-        setPower(false);
     }
 
     function handleClear() {
         setInput("0");
-        setPower(false);
     }
 
     function handleDelete() {
@@ -19,17 +17,23 @@ export default function Buttons({ on, setOn, setInput, input, power, setPower })
         setInput((prev) => prev === "0" ? e.target.textContent
         : prev[prev.length - 1] === ")" ? prev.slice(0, prev.length - 1) + e.target.textContent + ")"
         : prev + e.target.textContent);
+        
     }
 
     function handleDisplaySqrt(e) {
-        setInput((prev) => prev === "0" ? e.target.textContent + "()" : prev + e.target.textContent + "()");
-        // try to make it so clicking a second time gets you out of the ().
+
+        const matches = [...input.matchAll(/√|sqrtend/g)].length;
+
+        setInput((prev) => matches % 2 === 0 ? prev + e.target.textContent + "()" : prev + "sqrtend");
+
     }
 
     function handleDisplayPow(e) {
 
-        power ? setInput((prev) => prev + "~~") : setInput((prev) => prev + "**");
-        setPower(!power);
+        const matches = [...input.matchAll(/\*\*|powerend/g)].length;
+
+        setInput((prev) => matches % 2 === 0 ? prev + "**" : prev + "powerend");
+
 
     }
 
@@ -39,13 +43,11 @@ export default function Buttons({ on, setOn, setInput, input, power, setPower })
         .replaceAll("×", "*")
         .replaceAll("÷", "/")
         .replaceAll("−", "-")
-        .replaceAll("~~", "")
-        .replaceAll("√", "Math.sqrt");  // shorter/ better way to do that?
+        .replaceAll(/sqrtend|powerend/g, "")
+        .replaceAll("√", "Math.sqrt");
 
         const result = Function("return " + formatedInput)();
-        console.log(input);
-        console.log(formatedInput);
-        console.log(result);
+
         setInput(result.toString());
 
     }
