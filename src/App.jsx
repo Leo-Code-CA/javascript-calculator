@@ -5,7 +5,9 @@ export default function App() {
   
   return (
     <div className="main">
-      <Calculator />
+      <div className="background">
+        <Calculator />
+      </div>
     </div>
   )
 }
