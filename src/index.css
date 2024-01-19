@@ -1,13 +1,17 @@
-/* VARIABLES */
-@import url('https://fonts.googleapis.com/css2?family=Bungee+Hairline&family=Geo&family=Orbitron&family=Silkscreen&family=Tektur&display=swap');
+/* IMPORTS */
 
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400;1,6..96,700&family=Raleway:ital,wght@0,200;0,400;0,700;0,900;1,200;1,400;1,700&family=Tektur:wght@400..900&display=swap');
+
+/* VARIABLES */
 
 :root {
   --light-gray: #f5f6f7;
+  --medium-gray: #dfdfe2;
+  --darker-gray: #d0d0d5;
   --dark-blue: #0a0a23;
-
+  --light-purple: #dbb8ff;
+  --calculator-font: 'Tektur', sans-serif;
 }
-
 
 /* GLOBAL SETTINGS */
 
@@ -21,7 +25,7 @@ body {
   height: 100vh;
   width: 100%;
   background-color: var(--dark-blue);
-  font-family: 'Tektur', sans-serif;
+  font-family: var(--calculator-font);
 }
 
 .main {
@@ -34,8 +38,10 @@ body {
 
 .background {
   width: 65%;
+  min-width: 21.875rem;
+  max-width: 75rem;
   height: 100%;
-  background-image: url('./images/download.svg');
+  background-image: url('./assets/woman_working_illustration.svg');
   background-repeat: no-repeat;
   background-position: 100% 50%;
   display: flex;
@@ -43,51 +49,87 @@ body {
 }
 
 .calculator {
-  border: 1px solid;
+  width: 42%;
+  height: auto;
+  aspect-ratio: 1 / 1.5;
   border-radius: 1rem;
-  height: 75%;
-  width: 40%;
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 1rem;
   background-color: var(--light-gray);
   box-shadow: 1rem 1rem 1rem, -1rem 1rem 1rem;
 }
 
 button {
-  border: 1px solid;
+  border: 0.03rem solid var(--dark-blue);
+  border-radius: 0.2rem;
   padding: 0.5rem;
   cursor: pointer;
+  box-shadow: 0 0.156rem var(--dark-blue);
+  font-family: var(--calculator-font);
+  font-size: 1.2rem;
+  background-color: var(--medium-gray);
+}
+
+button:hover {
+  background-color: var(--darker-gray);
+}
+
+button:active {
+  box-shadow: 0 0.063rem var(--dark-blue);
+  transform: translateY(0.094rem);
 }
 
 /* CALCULATOR SCREEN */
 
 .calculator__screen {
-  padding: 0.5rem;
-  border: 1px solid;
+  padding: 0.5rem 0.5rem 0;
   height: 20%;
-  width: 100%;
-  text-align: right;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border-radius: 0.2rem;
+}
+
+.calculator__screen--on {
+  background: linear-gradient(
+    -45deg,
+    black,
+    var(--dark-blue),
+    var(--darker-gray)
+  );
+  color: var(--light-gray);
+}
+
+.calculator__screen--off {
+  background: linear-gradient(
+    45deg,
+    var(--dark-blue),
+    black,
+    var(--dark-blue)
+  )
 }
 
 .calculator__screen p {
   font-size: 3rem;
-  line-height: 0.7;
+  overflow-x: auto;
+  overflow-y: hidden;
+  text-align: right;
 }
 
 .calculator__screen small {
   font-size: 1.2rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
 }
 
 /* CALCULATOR BUTTONS */
 
 .calculator__buttons {
-  width: 100%;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -95,7 +137,6 @@ button {
 }
 
 .calculator__main-buttons {
-  width: 100%;
   flex-grow: 1;
   display: flex;
   flex-wrap: wrap;
@@ -105,18 +146,19 @@ button {
 
 .calculator__main-buttons button {
   width: 20%;
+  aspect-ratio: 1.2 / 1;
 }
 
-/* Calculator ON/ OFF */
-
 .calculator__onoff {
-  width: 100%;
   height: 11%;
-  text-align: right;
-  background: url("./images/fcc_logo_text.svg");
-  background-repeat: no-repeat;
-  background-position: left;
-  background-size: auto 75%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.calculator__onoff img {
+  max-width: 75%;
 }
 
 .calculator__onoff button {
@@ -124,7 +166,93 @@ button {
   width: 20%;
 }
 
-/* Calculator operators */
+.mathOnGoing {
+  background-color: var(--light-purple);
+  box-shadow: 0 0.063rem var(--dark-blue);
+  transform: translateY(0.094rem);
+}
 
-/* Calculator numbers */
+/* MEDIA QUERIES */
 
+@media screen and (max-width: 75rem) { /* 1200px */
+  .background {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 62rem) { /* 992px */
+  .background {
+    width: 65%;
+    background-image: url('./assets/standing_man_illustration.svg');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: 120%;
+  }
+
+  .calculator {
+    width: 60%;
+  }
+
+  .calculator__screen p {
+    font-size: 2.5rem;
+  }
+  
+  .calculator__screen small {
+    font-size: 1rem;
+  }
+
+  button {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 48rem) { /* 768px */
+  .background {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 36rem) { /* 576px */
+  .background {
+    width: 100%;
+    padding-left: 1rem;
+    background-position: 30% 50%;
+    background-size: 140%;
+  }
+
+  .calculator {
+    width: 70%;
+  }
+
+  .calculator__buttons {
+    gap: 0.5rem;
+  }
+
+  .calculator__onoff button {
+    padding: 0;
+  }
+
+  .calculator__main-buttons {
+    gap: 0.5rem
+  }
+
+  .calculator__screen p {
+    font-size: 2rem;
+  }
+  
+  .calculator__screen small {
+    font-size: 0.8rem;
+  }
+
+  button {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 28.125rem) { /* 450 px */
+  .calculator {
+    padding: 0.7rem;
+    gap: 0.7rem;
+    border-radius: 0.5rem;
+  }
+}

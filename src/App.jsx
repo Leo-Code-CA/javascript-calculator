@@ -1,5 +1,4 @@
 import Calculator from "./Calculator.jsx";
-import './index.css';
 
 export default function App() {
   
