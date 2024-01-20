@@ -8,9 +8,12 @@ export default function reducer(state, action) {
         // add parenthesis around the numbers starting with minus which have another operator before them
         .replaceAll(/(×|÷|−|\+)(−\d+)/g, "$1($2)")
         // if there are two operators right beside each other, just keep the last one
-        .replaceAll(/(×|÷|−|\+)(×|÷|−|\+)/g, "$2")
+        // .replaceAll(/(×|÷|−|\+)(×|÷|−|\+)/g, "$2")
+        .replaceAll(/(×|÷|−|\+)+(×|÷|−|\+)/g, "$2")
         // allow only one dot per number, remove the other ones
         .replaceAll(/(\d+\.\d+)(\.(\d+))+/g, "$1$3")
+        // do not allow two dots or more one beside the other
+        .replaceAll(/(\.+)/g, ".")
         // replace the multiplication symbol with the one understood by JS
         .replaceAll("×", "*")
         // replace the division symbol with the one understood by JS
@@ -59,7 +62,7 @@ export default function reducer(state, action) {
                 math: mathFormated(pow)
             }
         case "EQUAL":
-            const math = Function("return " + state.math)()
+            const math = new Function("return " + state.math)()
             const equal = math.toString().slice(0, 8);
             return {
                 main: equal,

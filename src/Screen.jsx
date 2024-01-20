@@ -6,6 +6,8 @@ export default function Screen({ on, input }) {
 
         return type
         .replaceAll(/sqrtend/g, "")
+        .replaceAll(/(\.+)/g, ".")
+        .replaceAll(/(\d+\.\d+)(\.(\d+))+/g, "$1$3")
         .split(/\*\*|powerend| /g)
         .map((elem, i) => elem === "=" ? equal = true && <span key={i}>{elem}</span>
         : equal ? <span key={i}>{elem}</span>
@@ -17,7 +19,7 @@ export default function Screen({ on, input }) {
     return (
         <div className={on ? "calculator__screen calculator__screen--on" : "calculator__screen calculator__screen--off"}>
             <small>{on && displayFormated(input.previous)}</small>
-            <p>{on && displayFormated(input.main)}</p>
+            <p id="display">{on && displayFormated(input.main)}</p>
         </div>
     )
 }
